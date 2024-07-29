@@ -7,16 +7,16 @@ $studAge = $_POST['studAge'];
 
 $studPhone = $_POST['studPhone'];
 
-// Insert Into the Table
+$id = $_POST['id'];
 
-$sql = "INSERT INTO `details`(`studName`, `studAge`, `studPhone`) 
-        VALUES ('$studName', '$studAge', '$studPhone')";
+// Update the table
+$sql = "UPDATE `details` SET `studName`='{$studName}', `studAge`='{$studAge}',
+     `studPhone`='{$studPhone}' WHERE `id`='$id'";
 
-if ($conn->query($sql) == TRUE) {
-    echo "<script>alert('Added  Successfully!');</script>";
+if ($conn->query($sql) === TRUE) {
+    echo "<script>alert('Updated Successfully!');</script>";
     echo "<script type='text/javascript'>window.location.href = 'viewDetails.php';</script>";
-} 
-else {
+} else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
 

@@ -67,21 +67,53 @@
 
 <body>
 
-    <a href="viewDetails.php">viewDetails</a>
+    <?php
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "detailsStud";
+    // Create connection
+    $conn = mysqli_connect($servername, $username, $password, $dbname);
 
-    <form action="saveDetails.php" method="POST">
-        <label for="studName">Name</label>
-        <input type="text" id="studName" name="studName">
+    $slno = 0;
 
-        <label for="studAge">Age</label>
-        <input type="text" id="studAge" name="studAge">
+    $id = $_REQUEST['id'];
 
-        <label for="studPhone">Mobile Number</label>
-        <input type="text" id="studPhone" name="studPhone">
+    $result = mysqli_query($conn, "SELECT * FROM details where id = $id");
 
-        <button type="submit">Submit</button>
-    </form>
+    while ($row_result = mysqli_fetch_array($result)) {
+        $slno++;
+        $studName = $row_result['studName'];
+        $studAge = $row_result['studAge'];
+        $studPhone = $row_result['studPhone'];
 
+        $id = $row_result['id'];
+
+    ?>
+
+
+        <form action="editSaveDetails.php" method="POST">
+
+            <input type="hidden" name="id" value="<?php echo $id; ?>">
+
+            <label>Name</label>
+            <input type="text" name="studName" value="<?php echo $studName; ?>">
+            <br>
+
+            <label>Age</label>
+            <input type="text" name="studAge" value="<?php echo $studAge; ?>">
+            <br>
+
+            <label>Mobile Number</label>
+            <input type="text" name="studPhone" value="<?php echo $studPhone; ?>">
+            <br>
+
+            <button type="submit">Submit</button>
+        </form>
+
+    <?php
+    }
+    ?>
 </body>
 
 </html>
